@@ -9,7 +9,11 @@
   "author": "Michiel Mulders",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.5.1",
-    "dotenv": "^8.2.0"
+    "@keyv/postgres": "^1.0.16",
+    "discord.js": "^12.4.1",
+    "discord.js-commando": "github:discordjs/Commando",
+    "dotenv": "^8.2.0",
+    "keyv": "^4.0.3",
+    "package.json": "^2.0.1"
   }
 }

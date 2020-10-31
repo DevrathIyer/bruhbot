@@ -1,25 +1,37 @@
 require('dotenv').config();
-const Discord = require('discord.js');
-const bot = new Discord.Client();
+const Keyv = require('keyv');
+
+const OWNER = process.env.owner;
+const INVITE = process.env.invite;
 const TOKEN = process.env.TOKEN;
+const DATABASE_URL = process.env.DATABASE_URL;
 
-bot.login(TOKEN);
+const { CommandoClient } = require('discord.js-commando');
+const path = require('path');
 
-bot.on('ready', () => {
-  console.info(`Logged in as ${bot.user.tag}!`);
+const client = new CommandoClient({
+	commandPrefix: '!',
+	owner: OWNER,
+	invite: INVITE,
+  disableEveryone: true,
+  unknownCommandResponse: false
 });
 
-bot.on('message', msg => {
-  if (msg.content === 'ping') {
-    msg.reply('pong');
-    msg.channel.send('pong');
+const keyv = new Keyv(DATABASE_URL);
+client.registry
+	.registerDefaultTypes()
+	.registerGroups([
+		['bruh', 'Bruh Commands'],
+	])
+	.registerDefaultGroups()
+	.registerDefaultCommands()
+	.registerCommandsIn(path.join(__dirname, 'commands'));
 
-  } else if (msg.content.startsWith('!kick')) {
-    if (msg.mentions.users.size) {
-      const taggedUser = msg.mentions.users.first();
-      msg.channel.send(`You wanted to kick: ${taggedUser.username}`);
-    } else {
-      msg.reply('Please tag a valid user!');
-    }
-  }
+client.once('ready', () => {
+	console.log(`Logged in as ${client.user.tag}! (${client.user.id})`);
+	client.user.setActivity('with Commando');
 });
+
+client.on('error', console.error);
+
+client.login(TOKEN);
