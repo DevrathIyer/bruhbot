@@ -1,8 +1,8 @@
 const { Command } = require('discord.js-commando');
 require('dotenv').config();
 const DATABASE_URL = process.env.DATABASE_URL;
-const Pool = require('pg').Pool
 
+const Pool = require('pg').Pool
 const pool = new Pool({
   connectionString:DATABASE_URL
 });
@@ -10,14 +10,14 @@ const pool = new Pool({
 module.exports = class MeowCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'bruh',
-			aliases: ['bruh-moment'],
+			name: 'daily',
+			aliases: ['claim'],
 			group: 'bruh',
-			memberName: 'bruh',
-			description: 'Adds to bruh count',
+			memberName: 'daily',
+			description: 'Claims a daily allowance',
       throttling: {
     		usages: 1,
-    		duration: 60,
+    		duration: 86400,
     	},
 		});
 	}
@@ -44,13 +44,13 @@ module.exports = class MeowCommand extends Command {
       //existing user
       else
       {
-        pool.query('UPDATE users SET bruhs=bruhs+1, tag=$2 WHERE user_id = $1',[id,tag], (error, results) => {
+        pool.query('UPDATE users SET coin=coin+500, tag=$2 WHERE user_id = $1',[id,tag], (error, results) => {
           if (error) {
             throw error
           }
         });
       }
-      return message.say(`bruh`);
+      return message.say(`Claimed 500 coin!`);
     });
 
 	}

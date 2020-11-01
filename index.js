@@ -1,5 +1,5 @@
 require('dotenv').config();
-const Keyv = require('keyv');
+
 
 const OWNER = process.env.owner;
 const INVITE = process.env.invite;
@@ -10,14 +10,14 @@ const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
 
 const client = new CommandoClient({
-	commandPrefix: '!',
+	commandPrefix: '~',
 	owner: OWNER,
 	invite: INVITE,
   disableEveryone: true,
   unknownCommandResponse: false
 });
 
-const keyv = new Keyv(DATABASE_URL);
+
 client.registry
 	.registerDefaultTypes()
 	.registerGroups([

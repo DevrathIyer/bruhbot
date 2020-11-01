@@ -1,8 +1,8 @@
 const { Command } = require('discord.js-commando');
 require('dotenv').config();
 const DATABASE_URL = process.env.DATABASE_URL;
-const Pool = require('pg').Pool
 
+const Pool = require('pg').Pool
 const pool = new Pool({
   connectionString:DATABASE_URL
 });
@@ -10,11 +10,11 @@ const pool = new Pool({
 module.exports = class MeowCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'bruh',
-			aliases: ['bruh-moment'],
+			name: 'bal',
+			aliases: ['count'],
 			group: 'bruh',
-			memberName: 'bruh',
-			description: 'Adds to bruh count',
+			memberName: 'bal',
+			description: 'Checks current coin balance and bruh count',
       throttling: {
     		usages: 1,
     		duration: 60,
@@ -35,22 +35,19 @@ module.exports = class MeowCommand extends Command {
       //new user
       if(results.rows.length == 0)
       {
-        pool.query('INSERT INTO users (user_id,bruhs,tag,coin) VALUES ($1,1,$2,0)',[id,tag], (error, results) => {
+        pool.query('INSERT INTO users (user_id,bruhs,tag,coin) VALUES ($1,1,$2)',[id,tag], (error, results) => {
           if (error) {
             throw error
           }
         });
+        return message.reply(`You have bruhed 1 time and have 0 coin`);
       }
       //existing user
       else
       {
-        pool.query('UPDATE users SET bruhs=bruhs+1, tag=$2 WHERE user_id = $1',[id,tag], (error, results) => {
-          if (error) {
-            throw error
-          }
-        });
+        let user = results.rows[0];
+        return message.reply(`You have bruhed ${user.bruhs} times and have ${user.coin} coin`);
       }
-      return message.say(`bruh`);
     });
 
 	}
