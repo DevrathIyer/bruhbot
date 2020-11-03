@@ -13,6 +13,7 @@
     "discord.js-commando": "file:Commando",
     "dotenv": "^8.2.0",
     "package.json": "^2.0.1",
-    "pg": "^8.4.2"
+    "pg": "^8.4.2",
+    "uglify-js": "^3.11.5"
   }
 }
