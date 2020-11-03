@@ -22,6 +22,7 @@ client.registry
 	.registerDefaultTypes()
 	.registerGroups([
 		['bruh', 'Bruh Commands'],
+		['smh', 'smh Commands'],
 	])
 	.registerDefaultGroups()
 	.registerDefaultCommands()

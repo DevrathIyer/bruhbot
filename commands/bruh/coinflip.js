@@ -29,7 +29,11 @@ module.exports = class MeowCommand extends Command {
     		{
     			key: 'wager',
     			prompt: 'How many coins you are willing to wager (must be <= current balance)',
-    			type: 'integer'
+    			type: 'integer',
+          validate: wager => {
+            if (wager > 0) return true;
+            return 'Wager must be strictly positive!';
+          }
     		}
   	],
 		});

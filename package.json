@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^12.4.1",
-    "discord.js-commando": "github:discordjs/Commando",
+    "discord.js-commando": "file:Commando",
     "dotenv": "^8.2.0",
     "package.json": "^2.0.1",
     "pg": "^8.4.2"
